@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Cat;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AdminBlogController extends Controller
@@ -24,6 +25,9 @@ class AdminBlogController extends Controller
         //ページネーション
         $blogs = Blog::latest('updated_at')->paginate(10);
         //$blogs = Blog::latest('updated_at')->simplepaginate(10);
+
+        //ユーザー情報表示
+        //$user = Auth::user();
 
         return view('admin.blogs.index', ['blogs' => $blogs]);
     }
@@ -64,6 +68,11 @@ class AdminBlogController extends Controller
 
         $categories = Category::all();
         $cats = Cat::all();
+
+        //ユーザー情報表示
+        //$user = Auth::user();
+
+
         return view('admin.blogs.edit', ['blog' => $blog, 'categories' => $categories, 'cats' => $cats]);
     }
 
